@@ -9,6 +9,12 @@ sudo apt-get -y install build-essential wget git zip
 sudo apt-get -y install libboost-all-dev libgoogle-glog-dev libssl-dev 
 
 #script provided installation
-sudo ./install_cmake.sh
+
+# debian apt install cmake already
+# sudo ./install_cmake.sh
+
+# except cuda also we need cudnn
+sudo ./install_cudnn.sh
+
 sudo ./install_opencv_cpp.sh
 
