@@ -299,6 +299,7 @@ void GlobalScheduler::setupProxyTaskList(string specfile, SysMonitor *SysState){
 			SysState->PerProxyTaskList[ptemp].push_back(t);
 			ptemp->duty_cycle = it->duty_cycle;      
 			// for load balancer, we also get throughput
+			// 对于复杂, 计算duty_cycle, 初始状态下是不计算inf的, 因为只有一个模型
 			double duty_cycle = max(it->duty_cycle,getEstLatency(it->name,it->batch_size,it->thread_cap,ptemp->type));
 			double trpt = it->batch_size * (1000 / it->duty_cycle);
 			pair<int, double> t2(getModelID(it->name),trpt);

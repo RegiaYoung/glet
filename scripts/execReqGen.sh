@@ -62,7 +62,8 @@ input_txt='input.txt'
 fi
 
 # frontend server
-ADDR=10.0.0.12
+#ADDR=10.0.0.12
+ADDR=127.0.0.1
 
 $BUILD_DIR/client --task $task --hostname $ADDR  --portno 8080 \
         --requests $req --batch $batch --rate $rate \

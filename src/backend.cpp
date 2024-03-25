@@ -59,7 +59,7 @@ po::variables_map ParseOpts(int argCount, char** argVar){
     ("config_json, cj", po::value<string>()->default_value("config.json"), "json file which holds configuration for experiment" )
     ("proxy_json, pj", po::value<string>()->default_value("proxy_config.json"), "json file which holds configuration for models on proxy server" )
     ("proxy_script, ps", po::value<string>()->default_value("startProxy.sh"), "script name for starting proxy (default: startProxy.sh)" )
-    ("full_proxy_dir, fpd", po::value<string>()->default_value("/home/sbchoi/org/gpu-let/resource/proxy"), "/FULL/PATH/TO/resource/proxy" );
+    ("full_proxy_dir, fpd", po::value<string>()->default_value("/home/jjver/glet/resource/proxy"), "/FULL/PATH/TO/resource/proxy" );
     //("model_list", po::value<string>()->default_value("ModelList.txt"), "list of model and configuration of proxys" );
     po::variables_map vm;
   po::store(po::parse_command_line(argCount, argVar, desc), vm);

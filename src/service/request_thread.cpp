@@ -81,7 +81,7 @@ int recvTensor(int SockNum, shared_ptr<AppInstance> tmp, TensorSpec* pSpec, bool
 
         int tid = SOCKET_rxsize(SockNum);
         if (tid <= 0) {
-                cout << "CLIENT CLOSED2, received: "<< tid << "as tid"<< endl;
+                cout << "CLIENT CLOSED2, received: "<< tid << " as tid"<< endl;
                 return 1;  // Client closed the socket    
         }
 

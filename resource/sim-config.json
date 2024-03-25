@@ -2,7 +2,7 @@
 	"GPUs":[
 	{
 		"Type":"2080ti",
-		"Num": 2
+		"Num": 1
 	}],
         "Max Model": 3,
         "Part": 1,
