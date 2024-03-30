@@ -13,6 +13,13 @@
 	"latency_prof_file": "3080/latency.csv",
 	"interference_const_file": "3080/INT_MODEL_CONSTANT.CSV",
 	"interference_util_file": "3080/UTIL.CSV"
+	},
+	{
+	"type":"a6000",
+	"mem_mb":49140,
+	"latency_prof_file": "a6000/latency.csv",
+	"interference_const_file": "a6000/INT_MODEL_CONSTANT.CSV",
+	"interference_util_file": "a6000/UTIL.CSV"
 	}
 	]
 }

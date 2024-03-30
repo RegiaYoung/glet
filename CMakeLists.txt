@@ -5,25 +5,42 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_BUILD_TYPE Debug)
 set(GPULET_ROOT $ENV{PWD})
 
+# cuda toolkit的版本限定
+set(CUDA_PATH /usr/local/cuda)
+set(CUDA_TOOLKIT_ROOT_DIR /usr/local/cuda)
+set(CMAKE_CUDA_COMPILER /usr/local/cuda/bin/nvcc)
+
+# boost库
+set(Boost_INCLUDE_DIRS /home/scc/glet/boost/include)
+set(Boost_LIBRARY_DIRS /home/scc/glet/boost/lib)
+
+# find_package(Boost REQUIRED)
+
+# add_compile_options(-I${Boost_INCLUDE_DIRS})
+
 find_package(Torch REQUIRED)
 message(STATUS "Find Torch VERSION: ${Torch_VERSION}")
 add_definitions(-DTORCH_VERSION_MAJOR=${Torch_VERSION_MAJOR})
 add_definitions(-DTORCH_VERSION_MINOR=${Torch_VERSION_MINOR})
 add_definitions(-DTORCH_VERSION_PATCH=${Torch_VERSION_PATCH})
+
 find_package(OpenCV REQUIRED)
 
 message(${OpenCV_INCLUDE_DIRS})
 
 include_directories(
 	#include
-    src/common
+        src/common
 	src/proxy
 	src/scheduler
 	src/service
 	#${TONIC_INCLUDE_DIR}
     ${OpenCV_INCLUDE_DIRS}
     ${CMAKE_CURRENT_BINARY_DIR}
+    ${Boost_INCLUDE_DIRS} #boost
 )
+
+link_directories(${Boost_LIBRARY_DIRS}) #boost
 
 file(GLOB COMMON_SRCS src/common/*.cpp)
 file(GLOB SERVER_SRCS src/service/*.cpp)
@@ -57,12 +74,15 @@ add_compile_definitions(NO_NET)
 #add_compile_definitions(MUTRACE)
 
 
+#----- Clean ----- If there is any problem, do this first
+# rm -rf ./bin/CMakeFiles
+# rm -rf ./build ./bin
 
 
 #---------standalone_inference---------
 
 add_executable(standalone_inference src/standalone_inference.cpp ${SCHEDULER_SRCS} ${COMMON_SRCS})
-target_link_libraries(standalone_inference "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options  boost_system nvidia-ml)
+target_link_libraries(standalone_inference "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_regex  boost_system nvidia-ml)
 set_property(TARGET standalone_inference PROPERTY CXX_STANDARD 14)     
 
 #---------standalone_scheduler---------
@@ -72,7 +92,7 @@ add_executable(standalone_scheduler src/standalone_scheduler.cpp
                 src/common/jsoncpp.cpp
                 src/common/config.cpp
                 )
-target_link_libraries(standalone_scheduler boost_program_options  boost_system)
+target_link_libraries(standalone_scheduler boost_program_options boost_regex  boost_system)
 set_property(TARGET standalone_scheduler PROPERTY CXX_STANDARD 14)
 
 
@@ -81,7 +101,7 @@ add_executable(proxy src/proxy.cpp
 	src/proxy/profile.cpp
 	src/service/proxy_ctrl.cpp
        	${COMMON_SRCS})
-target_link_libraries(proxy "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options  boost_system nvidia-ml)
+target_link_libraries(proxy "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_regex boost_system nvidia-ml)
 set_property(TARGET proxy PROPERTY CXX_STANDARD 14) 
 
 #---------frontend---------
@@ -108,7 +128,7 @@ add_executable(frontend src/frontend.cpp ${COMMON_SRCS} ${SCHEDULER_SRCS}
         src/service/device_spec.cpp
 	src/service/load_balancer.cpp
         )
-target_link_libraries(frontend "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options  boost_system nvidia-ml)
+target_link_libraries(frontend "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_regex boost_system nvidia-ml)
 
 set_property(TARGET frontend PROPERTY CXX_STANDARD 14) 
 #
@@ -124,7 +144,7 @@ add_executable(backend src/backend.cpp
 	src/service/input.cpp
 	src/service/proxy_ctrl.cpp
         )
-target_link_libraries(backend "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options  boost_system nvidia-ml)
+target_link_libraries(backend "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_regex boost_system nvidia-ml)
 target_compile_definitions(backend PRIVATE BACKEND=1)
 
 set_property(TARGET backend PROPERTY CXX_STANDARD 14) 
@@ -138,5 +158,5 @@ add_executable(client src/client.cpp
 	src/common/common_utils.cpp
 	src/common/exp_model.cpp
 	)
-target_link_libraries(client "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options  boost_system nvidia-ml)
+target_link_libraries(client "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_regex boost_system nvidia-ml)
 set_property(TARGET client PROPERTY CXX_STANDARD 14)     

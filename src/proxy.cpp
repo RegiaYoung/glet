@@ -840,8 +840,14 @@ pthread_t init_control_thread(){
 }
 
 
-int main(int argc, char** argv){    
+int main(int argc, char** argv){
+    //https://github.com/pytorch/pytorch/issues/52286
     torch::jit::getBailoutDepth() = 0;
+
+    // torch::jit::setGraphExecutorOptimize(false);
+    // torch::jit::FusionStrategy static0 = { {torch::jit::FusionBehavior::STATIC, 0} }; 
+    // torch::jit::setFusionStrategy(static0); 
+
     torch::jit::getProfilingMode() = false;
     uint64_t main_start, main_end;
     main_start=getCurNs();

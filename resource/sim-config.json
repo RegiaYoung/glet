@@ -1,8 +1,8 @@
 {
 	"GPUs":[
 	{
-		"Type":"2080ti",
-		"Num": 1
+		"Type":"a6000",
+		"Num": 2
 	}],
         "Max Model": 3,
         "Part": 1,

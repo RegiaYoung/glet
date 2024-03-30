@@ -210,6 +210,9 @@ void PyTorchInit(){
 int main(int argc, char** argv) {
         torch::jit::getBailoutDepth() = 0;
         torch::jit::getProfilingMode() = false;
+        // torch::jit::setGraphExecutorOptimize(false);
+        // torch::jit::FusionStrategy static0 = { {torch::jit::FusionBehavior::STATIC, 0} }; 
+        // torch::jit::setFusionStrategy(static0); 
         /*get parameters for this program*/
         po::variables_map vm = parse_opts(argc, argv);
         setupGlobalVars(vm);

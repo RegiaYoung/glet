@@ -1,5 +1,5 @@
 #!/bin/bash 
-
+#不能使用GCC-11, 会发生错误...
 curr_dir=$PWD
 cd /opt
 git clone https://github.com/Itseez/opencv.git

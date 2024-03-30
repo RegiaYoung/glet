@@ -44,6 +44,7 @@ bin/*
 
 # ignore all files under libtorch
 libtorch/*
+boost/*
 
 # Popular scripts with hardpaths
 asr/kaldi_patch.sh
