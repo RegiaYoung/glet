@@ -82,7 +82,7 @@ add_compile_definitions(NO_NET)
 #---------standalone_inference---------
 
 add_executable(standalone_inference src/standalone_inference.cpp ${SCHEDULER_SRCS} ${COMMON_SRCS})
-target_link_libraries(standalone_inference "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_regex  boost_system nvidia-ml)
+target_link_libraries(standalone_inference "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_exception boost_regex  boost_system nvidia-ml)
 set_property(TARGET standalone_inference PROPERTY CXX_STANDARD 14)     
 
 #---------standalone_scheduler---------
@@ -92,7 +92,7 @@ add_executable(standalone_scheduler src/standalone_scheduler.cpp
                 src/common/jsoncpp.cpp
                 src/common/config.cpp
                 )
-target_link_libraries(standalone_scheduler boost_program_options boost_regex  boost_system)
+target_link_libraries(standalone_scheduler boost_program_options boost_exception boost_regex  boost_system)
 set_property(TARGET standalone_scheduler PROPERTY CXX_STANDARD 14)
 
 
@@ -101,7 +101,7 @@ add_executable(proxy src/proxy.cpp
 	src/proxy/profile.cpp
 	src/service/proxy_ctrl.cpp
        	${COMMON_SRCS})
-target_link_libraries(proxy "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_regex boost_system nvidia-ml)
+target_link_libraries(proxy "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_exception boost_regex boost_system nvidia-ml)
 set_property(TARGET proxy PROPERTY CXX_STANDARD 14) 
 
 #---------frontend---------
@@ -128,7 +128,7 @@ add_executable(frontend src/frontend.cpp ${COMMON_SRCS} ${SCHEDULER_SRCS}
         src/service/device_spec.cpp
 	src/service/load_balancer.cpp
         )
-target_link_libraries(frontend "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_regex boost_system nvidia-ml)
+target_link_libraries(frontend "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_exception boost_regex boost_system nvidia-ml)
 
 set_property(TARGET frontend PROPERTY CXX_STANDARD 14) 
 #
@@ -144,7 +144,7 @@ add_executable(backend src/backend.cpp
 	src/service/input.cpp
 	src/service/proxy_ctrl.cpp
         )
-target_link_libraries(backend "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_regex boost_system nvidia-ml)
+target_link_libraries(backend "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_exception boost_regex boost_system nvidia-ml)
 target_compile_definitions(backend PRIVATE BACKEND=1)
 
 set_property(TARGET backend PROPERTY CXX_STANDARD 14) 
@@ -158,5 +158,5 @@ add_executable(client src/client.cpp
 	src/common/common_utils.cpp
 	src/common/exp_model.cpp
 	)
-target_link_libraries(client "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_regex boost_system nvidia-ml)
+target_link_libraries(client "${TORCH_LIBRARIES}" ${OpenCV_LIBS} boost_program_options boost_exception boost_regex boost_system nvidia-ml)
 set_property(TARGET client PROPERTY CXX_STANDARD 14)     

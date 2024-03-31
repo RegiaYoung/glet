@@ -1,7 +1,7 @@
-# GLET-MOD
-基于glet修改的推理调度器，正在working...
+# GLET-Orion-MOD
+多GPU的异构ML推理负载细粒度调度框架，基于glet架构添加负载类型维度。
 
-# Glet Prototype for ATC 2022 Artifact Evaluation
+
 
 To maximize the resource efficiency of inference servers, we proposed a key mechanism to exploit hardware support for spatial
 partitioning of GPU resources. With the partitioning mechanism, a new abstraction layer of GPU resources is created with
@@ -14,19 +14,19 @@ effects when two ML tasks are running concurrently in a GPU.
 # Evaluated Environment:
 
 ## OS/Software
-- Ubuntu 18.04
-- Linux Kernel 4.15
-- CUDA 10.2
-- cuDNN 7.6
-- PyTorch 1.10
+- Ubuntu 22.04
+- Linux Kernel 6.5.0
+- CUDA 11.4
+- cuDNN 9.0
+- PyTorch 1.11
 
 ## Hardware
 
 The prototype was evaluated with multi-GPU server with the following hardware:
 
-- RTX 2080ti (11GB global memory)
-- intel Xeon E5-2630 v4 
-- Servers connected with 10 GHz Ethernet
+- RTX A6000 with 48GB global memory (but reccommend to use Nvidia 20s/30s GPU)
+- intel Xeon(R) Silver 4210R
+- Servers connected with 10 GHz Ethernet (virtual)
 
 # Getting Started with Docker Image:
 
@@ -100,6 +100,8 @@ Install the following libraries and drivers to build the prototype
 
 - cmake >= 3.19, use cmake to build binaries (script provided)
 
+when using Ampere GPU, you need to use CUDA11 and newer LibTorch, you may need to modify some torch API to arrange it.
+
 ## Steps for building
 
 1. Download and extract glet.zip.
@@ -163,16 +165,4 @@ Example) schedule tasks on ../resource/rates.csv, configured by ../resource/sim-
 
 >./executeScheduler_example.sh
 
-# Github Repository:
-
-Although this artifact contains all necessary and functional code, it is still in its **early stage of development and needs improvement** in terms of UI and code readability. 
-
-Further improvement of code will be provided in the following github repository:
-
-> (https://github.com/casys-kaist/glet)
-
-
-# Academic and Conference Papers:
-
-[**ATC**] "Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing", accepted for The 2022 USENIX Annual Technical Conference, July, 2022
 
